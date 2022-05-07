@@ -1,3 +1,4 @@
+from turtle import position
 import numpy as np
 
 
@@ -44,9 +45,11 @@ def p_moves(dice, positions, turn):
     else:
         print("No pieces of yours here")
 
+    print(positions)
+    print("\n")
+    return
 
-
-def main():
+def create_board():
     positions = []
 
     for i in range(24):
@@ -67,30 +70,35 @@ def main():
     
     for i in range(24):
         print(f"{positions[i]}  --  pos{i + 1}")
-
-    # create turn order
-
+    
     turn = 1
+    return positions, turn
+
+def turn_end(turn):
+    if turn == 1:
+        turn = -1
+    else:
+        turn == 1
+
+def main():
+    
+    # creating the board
+    positions, turn = create_board()
+
 
     # create dices
-
     dice1 = np.random.randint(1,7)
     dice2 = np.random.randint(1,7)
 
     print(f"Your dices were {dice1} and {dice2}. \n")
-
 
     #pieces move
     p_moves(dice1, positions, turn)
     p_moves(dice2, positions, turn)
 
     # turn ends
-    if turn == 1:
-        turn = -1
-    else:
-        turn == 1
-
-    print(positions)
+    turn_end()
+    
     
 
 if __name__ == "__main__":
