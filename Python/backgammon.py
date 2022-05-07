@@ -2,34 +2,47 @@ import numpy as np
 
 
 def p_moves(dice, positions, turn):
-    f_pos = input(f"Your dice was {dice}: what position is the chip you want to move to? ")
+    f_pos = input(f"Your dice was {dice}: what position is the piece you want to move to? ")
 
     f_pos = int(f_pos) -1
 
     if turn == 1:
         fin_pos = f_pos - dice
+        a_turn =-1
     else: 
         fin_pos = f_pos + dice
+        a_turn =1
 
 
     if positions[f_pos][1] == turn:
-        print("You can move from here.") 
-        if positions[f_pos][0] >=0:
-            print("You have a peace here.")
-            
-            if f_pos - dice > 0:
-                print("The place is on the board")
-                if positions[fin_pos][1] == turn or positions[fin_pos][1] == 0:
-                    print("The place you end is empty/yours.")
-                    positions[f_pos][0] += -1
-                    positions[fin_pos][0] += 1
+        if fin_pos > 0 and fin_pos <25:
+            if positions[fin_pos][1] != a_turn:
+                
+                positions[f_pos][0] += -1
+                positions[fin_pos][0] += 1
 
-                    if positions[fin_pos][1] == 0:
-                        positions[fin_pos][1] = turn
+                if positions[fin_pos][1] == 0:
+                    positions[fin_pos][1] = turn
 
 
-                    if positions[f_pos][0] == 0:
-                        positions[f_pos][1] =0
+                if positions[f_pos][0] == 0:
+                    positions[f_pos][1] = 0
+
+            elif positions[fin_pos][0] == 1:
+                
+                positions[fin_pos][1] = turn
+
+                positions[f_pos] += -1
+
+                if positions[f_pos][0] == 0:
+                    positions[f_pos][1] = 0
+
+            else:
+                print("Ocupied place!")
+        else:
+            print("Outside the board!")
+    else:
+        print("No pieces of yours here")
 
 
 
@@ -67,11 +80,8 @@ def main():
     print(f"Your dices were {dice1} and {dice2}. \n")
 
 
-    #first peaces moves
+    #pieces move
     p_moves(dice1, positions, turn)
-
-    #second peace moves
-
     p_moves(dice2, positions, turn)
 
     # turn ends
